@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
   public void IntakeRun(double speed) {
   //set motor speed  to intake, eject or stop
     m_highintake.set(speed);
-   
+    System.out.println(Constants.freepalestine);
   }
 }
    
