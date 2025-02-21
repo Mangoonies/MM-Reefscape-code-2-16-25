@@ -68,6 +68,12 @@ public final class Constants
   public static final double startingConfig = 2.5;
   public static final double outerPIDTolorence = 0.04;
 
+  // Climb Subsystem
+  public static int kClimbID = 11; // CAN value of kHighIntakeID
+  public static final double kClimbSpeed = .37; // Update this with your desired intake speed
+  public static final double kClimbIn = kClimbSpeed;
+  public static final double kClimbOut = -kClimbSpeed;
+
    // Miscellanous
    public static final double kStopSpeed = 0.0; // stop motor speed
 

@@ -108,10 +108,8 @@ public class RobotContainer
   public RobotContainer()
   {
     NamedCommands.registerCommand("Shoot", Commands.runOnce(()-> {;}));
-    // Configure the trigger bindings
-    configureBindings();
-    DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+        NamedCommands.registerCommand("Shoot", Commands.runOnce(()-> {m_intake.IntakeRun(Constants.kIntakeOut);}));
+        NamedCommands.registerCommand("RunArm", Commands.runOnce(()-> {new ArmRaiseL1(m_arm);}));
   }
 
   /**
