@@ -30,6 +30,13 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.Constants;
+import frc.robot.commands.ArmLower;
+import frc.robot.commands.ArmRaise;
+import frc.robot.commands.ArmRaiseL1;
+import frc.robot.commands.ArmRaiseL2;
+import frc.robot.commands.ArmRaiseL3;
+import frc.robot.commands.ArmRaiseL4;
 import java.io.File;
 import java.util.List;
 
@@ -42,6 +49,8 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
+  
+
   private final Arm m_arm = new Arm();
   private final Intake m_intake = new Intake();
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -170,6 +179,12 @@ public class RobotContainer
       .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> m_intake.IntakeRun(Constants.kIntakeIn)))
       .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
+
+      // Operator Controls
+      driverXbox.x().whileTrue(new ArmRaiseL1(m_arm));
+      driverXbox.y().whileTrue(new ArmRaiseL2(m_arm));
+      driverXbox.b().whileTrue(new ArmRaiseL3(m_arm));
+      driverXbox.a().whileTrue(new ArmRaiseL4(m_arm));
     }
 
   }

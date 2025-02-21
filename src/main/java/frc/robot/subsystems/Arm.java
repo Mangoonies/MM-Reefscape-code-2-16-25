@@ -6,17 +6,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.LimitSwitchConfig.Type;
-
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,8 +23,6 @@ public class Arm extends SubsystemBase {
   private SparkClosedLoopController m_pidController;
   private AbsoluteEncoder m_encoder;
   private double m_setPoint;
-  public SparkLimitSwitch m_rLimitSwitch;
-  public SparkLimitSwitch m_fLimitSwitch;
   private SparkMaxConfig motorConfig;
 
   /** Creates a new OuterArm. */
@@ -37,11 +31,6 @@ public class Arm extends SubsystemBase {
     m_pidController = m_armMotor.getClosedLoopController();
     m_encoder = m_armMotor.getAbsoluteEncoder();
     motorConfig = new SparkMaxConfig();
-    m_rLimitSwitch = m_armMotor.getReverseLimitSwitch();
-    m_fLimitSwitch = m_armMotor.getForwardLimitSwitch();
-
-    
-
 
     motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAnalogSensor)
@@ -52,19 +41,6 @@ public class Arm extends SubsystemBase {
         .d(Constants.kD)
         .outputRange(Constants.kMin, Constants.kMax)
         .iZone(Constants.kIZone);
-
-    motorConfig.limitSwitch
-        .forwardLimitSwitchType(Type.kNormallyOpen)
-        .forwardLimitSwitchEnabled(true)
-        .reverseLimitSwitchType(Type.kNormallyOpen)
-        .reverseLimitSwitchEnabled(true);
-
-    // Set the soft limits to stop the motor at -50 and 50 rotations
-    motorConfig.softLimit
-        .forwardSoftLimit(180)
-        .forwardSoftLimitEnabled(true)
-        .reverseSoftLimit(0)
-        .reverseSoftLimitEnabled(true);
 
     m_armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
@@ -89,9 +65,9 @@ public class Arm extends SubsystemBase {
     m_pidController.setReference(Constants.upPIDReferenceL4, SparkMax.ControlType.kPosition);
     m_setPoint = Constants.upPIDReferenceL4;
   }
-  public void raiseTravel() {
-    m_pidController.setReference(Constants.upPIDReferenceT, SparkMax.ControlType.kPosition);
-    m_setPoint = Constants.upPIDReferenceT;
+  public void raiseFeed() {
+    m_pidController.setReference(Constants.upPIDReferenceF, SparkMax.ControlType.kPosition);
+    m_setPoint = Constants.upPIDReferenceF;
   }
   public void lower(){
     m_armMotor.set(Constants.lowerSpeed);
@@ -111,7 +87,6 @@ public class Arm extends SubsystemBase {
   }
 
   public void raiseWithInput(double speed) {
-    System.out.println("Outer arm raised at speed: " + speed);
     m_armMotor.set(speed);
   }
 

@@ -45,9 +45,6 @@ public final class Constants
 
   // Arm (change all of these numbers)
   public static final int kArmMotorPort = 28;
-  public static final double kRaisedPosition = Units.degreesToRadians(90.0);
-  public static final double kLoweredPosition = Units.degreesToRadians(0.0);
-  public static final double kL1Degrees = 35;
   public static final int overrideDown = 2;
   public static final int overrideUp = 3;
   public static final double raiseSpeed = 1.0;
@@ -64,15 +61,9 @@ public final class Constants
   public static final double upPIDReferenceL3 = 65;
   public static final double upPIDReferenceL4 = 80;
   public static final double downPIDReference = -90;
-  public static final double upPIDReferenceT = 45;
+  public static final double upPIDReferenceF = 45;
   public static final double startingConfig = 2.5;
   public static final double outerPIDTolorence = 0.04;
-
-  // Climb Subsystem
-  public static int kClimbID = 11; // CAN value of kHighIntakeID
-  public static final double kClimbSpeed = .37; // Update this with your desired intake speed
-  public static final double kClimbIn = kClimbSpeed;
-  public static final double kClimbOut = -kClimbSpeed;
 
    // Miscellanous
    public static final double kStopSpeed = 0.0; // stop motor speed
