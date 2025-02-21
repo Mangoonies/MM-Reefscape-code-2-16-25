@@ -47,8 +47,6 @@ public final class Constants
   public static final int kArmMotorPort = 28;
   public static final double kRaisedPosition = Units.degreesToRadians(90.0);
   public static final double kLoweredPosition = Units.degreesToRadians(0.0);
-  public static final double freepalestine = Units.degreesToRotations(90);
-  public static final double balls = freepalestine + 1;
   public static final double kL1Degrees = 35;
   public static final int overrideDown = 2;
   public static final int overrideUp = 3;
@@ -61,12 +59,12 @@ public final class Constants
   public static final double kFF = 0.0;
   public static final double kMin = -1.0;
   public static final double kMax = 1.0;
-  public static final double upPIDReferenceL1 = Math.toRadians(35);
-  public static final double upPIDReferenceL2 = Math.toRadians(50);
-  public static final double upPIDReferenceL3 = Math.toRadians(65);
-  public static final double upPIDReferenceL4 = Math.toRadians(80);
-  public static final double downPIDReference = Math.toRadians(-90);
-  public static final double upPIDReferenceT = Math.toRadians(45);
+  public static final double upPIDReferenceL1 = 35;
+  public static final double upPIDReferenceL2 = 50;
+  public static final double upPIDReferenceL3 = 65;
+  public static final double upPIDReferenceL4 = 80;
+  public static final double downPIDReference = -90;
+  public static final double upPIDReferenceT = 45;
   public static final double startingConfig = 2.5;
   public static final double outerPIDTolorence = 0.04;
 

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -14,6 +15,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.LimitSwitchConfig.Type;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,7 +25,7 @@ public class Arm extends SubsystemBase {
 
   private SparkMax m_armMotor;
   private SparkClosedLoopController m_pidController;
-  private DutyCycleEncoder m_encoder;
+  private AbsoluteEncoder m_encoder;
   private double m_setPoint;
   public SparkLimitSwitch m_rLimitSwitch;
   public SparkLimitSwitch m_fLimitSwitch;
@@ -33,10 +35,12 @@ public class Arm extends SubsystemBase {
   public Arm() {
     m_armMotor = new SparkMax(Constants.kArmMotorPort, MotorType.kBrushless);
     m_pidController = m_armMotor.getClosedLoopController();
-    m_encoder = new DutyCycleEncoder(0, 360, 180);
+    m_encoder = m_armMotor.getAbsoluteEncoder();
     motorConfig = new SparkMaxConfig();
     m_rLimitSwitch = m_armMotor.getReverseLimitSwitch();
     m_fLimitSwitch = m_armMotor.getForwardLimitSwitch();
+
+    
 
 
     motorConfig.closedLoop
@@ -100,10 +104,10 @@ public class Arm extends SubsystemBase {
     m_armMotor.set(Constants.kStopSpeed);
   }
   public boolean isAtSetPoint() {
-    return (Math.abs(m_setPoint - m_encoder.get()) <= Constants.outerPIDTolorence);
+    return (Math.abs(m_setPoint - Units.rotationsToDegrees(m_encoder.getPosition())) <= Constants.outerPIDTolorence);
   }
   public boolean isAtStowed() {
-    return (Math.abs(Constants.downPIDReference - m_encoder.get()) <= Constants.outerPIDTolorence);
+    return (Math.abs(Constants.downPIDReference - Units.rotationsToDegrees(m_encoder.getPosition())) <= Constants.outerPIDTolorence);
   }
 
   public void raiseWithInput(double speed) {
@@ -113,7 +117,7 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("outer arm", m_encoder.get());
+    SmartDashboard.putNumber("outer arm", m_encoder.getPosition());
     // This method will be called once per scheduler run
   }
 }
