@@ -107,7 +107,7 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    NamedCommands.registerCommand("Shoot", Commands.runOnce(()-> {m_arm.ArmRun(Constants.kArmOut);}));
+    NamedCommands.registerCommand("Shoot", Commands.runOnce(()-> {;}));
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
@@ -172,10 +172,6 @@ public class RobotContainer
       .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
       driverXbox.rightBumper().onTrue(new InstantCommand(() -> m_intake.IntakeRun(Constants.kIntakeIn)))
       .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
-      driverXbox.leftTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmOut)))
-        .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
-      driverXbox.rightTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmIn)))
-        .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
     }
 
   }

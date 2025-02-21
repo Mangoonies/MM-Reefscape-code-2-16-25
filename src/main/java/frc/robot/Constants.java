@@ -37,12 +37,37 @@ public final class Constants
   public static final double kIntakeIn = kIntakeSpeed;
   public static final double kIntakeOut = -kIntakeSpeed;
 
-   // Matthew's real arm Subsystem
+   // Matthew's lame ass arm Subsystem copied from ME!!!
    public static int kArmID = 9; // CAN value of kHighIntakeID
    public static final double kArmSpeed = .12; // Update this with your desired arm speed
    public static final double kArmIn = kArmSpeed;
    public static final double kArmOut = -kArmSpeed;
- 
+
+  // Arm (change all of these numbers)
+  public static final int kArmMotorPort = 28;
+  public static final double kRaisedPosition = Units.degreesToRadians(90.0);
+  public static final double kLoweredPosition = Units.degreesToRadians(0.0);
+  public static final double kL1Degrees = 35;
+  public static final int overrideDown = 2;
+  public static final int overrideUp = 3;
+  public static final double raiseSpeed = 1.0;
+  public static final double lowerSpeed = -0.6;
+  public static final double kP = 10.0;
+  public static final double kI = 0.0;
+  public static final double kD = 0.0;
+  public static final double kIZone = 0.0;
+  public static final double kFF = 0.0;
+  public static final double kMin = -1.0;
+  public static final double kMax = 1.0;
+  public static final double upPIDReferenceL1 = 35;
+  public static final double upPIDReferenceL2 = 50;
+  public static final double upPIDReferenceL3 = 65;
+  public static final double upPIDReferenceL4 = 80;
+  public static final double downPIDReference = -90;
+  public static final double upPIDReferenceT = 45;
+  public static final double startingConfig = 2.5;
+  public static final double outerPIDTolorence = 0.04;
+
    // Miscellanous
    public static final double kStopSpeed = 0.0; // stop motor speed
 
