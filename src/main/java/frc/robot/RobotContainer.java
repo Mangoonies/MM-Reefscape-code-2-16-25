@@ -31,6 +31,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Camera;
 import frc.robot.commands.TestDrive;
 import java.io.File;
 import java.util.List;
@@ -46,8 +47,11 @@ public class RobotContainer
 {
   private final Arm m_arm = new Arm();
   private final Intake m_intake = new Intake();
+  private final Climb m_climb = new Climb();
+  private final Camera m_camera = new Camera();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final         CommandXboxController operatorXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/falcon"));
@@ -179,6 +183,11 @@ public class RobotContainer
         .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
       driverXbox.rightTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmIn)))
         .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
+
+      operatorXbox.rightTrigger().onTrue(new InstantCommand(() -> m_climb.ClimbRun(Constants.kClimbIn)))
+      .onFalse(new InstantCommand(() -> m_climb.ClimbRun(Constants.kStopSpeed)));
+      operatorXbox.leftTrigger().onTrue(new InstantCommand(() -> m_climb.ClimbRun(Constants.kClimbOut)))
+      .onFalse(new InstantCommand(() -> m_climb.ClimbRun(Constants.kStopSpeed)));
     }
 
   }

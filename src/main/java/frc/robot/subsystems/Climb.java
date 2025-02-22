@@ -13,11 +13,11 @@ public class Climb extends SubsystemBase {
 
   public Climb() {
   /** Creates a new Intake. */
-    m_climb = new SparkMax(Constants.kHighIntakeID, MotorType.kBrushless);
+    m_climb = new SparkMax(Constants.kClimbID, MotorType.kBrushless);
     
   }
   
-  public void IntakeRun(double speed) {
+  public void ClimbRun(double speed) {
   //set motor speed  to intake, eject or stop
     m_climb.set(speed);
    

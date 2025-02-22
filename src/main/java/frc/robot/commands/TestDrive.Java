@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.Subsystems.SwerveSubsystem;
-import frc.robot.Subsystems.Intake;
-import frc.robot.Subsystems.Arm;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Subsystems.Drivetrain;
-import frc.robot.Commands.AutoIntakeRun;
+import frc.robot.commands.AutoIntakeRun;
+import frc.robot.commands.AutoArmRun;
 
 public class TestDrive extends SequentialCommandGroup {
   /**
@@ -22,10 +22,10 @@ public class TestDrive extends SequentialCommandGroup {
    * @param m_intake 
    * @param m_Arm The drivetrain subsystem on which this command will run
    */
-  public TestDrive(SwerveSubsystem Drivebase, Shooter m_shooter, Intake m_intake) {
+  public TestDrive(SwerveSubsystem Drivebase, Arm m_Arm, Intake m_intake) {
     addCommands(
-      new getAutonomousCommand("Angular"),
+      Drivebase.getAutonomousCommand("Angular"),
       new AutoArmRun(m_Arm,2),
-      new AutoIntakeRun(m_intake, 1));
+      new AutoIntakeRun(m_intake, 3));
   }
 }

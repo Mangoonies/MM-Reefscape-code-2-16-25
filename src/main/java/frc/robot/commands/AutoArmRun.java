@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.Subsystems.Arm;
+import frc.robot.subsystems.Arm;
 
 public class AutoArmRun extends Command {
   private Timer timer;
@@ -34,7 +34,7 @@ public class AutoArmRun extends Command {
   @Override
   public void execute() {
     System.out.println("AutoArmRun " + timer.get());
-    m_Arm.ArmRun(Constants.kArmIn);
+    m_Arm.ArmRun(Constants.kArmOut);
   }
 
   // Called once the command ends or is interrupted.
