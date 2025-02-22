@@ -32,6 +32,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Camera;
+import frc.robot.commands.OpSide;
 import frc.robot.commands.TestDrive;
 import java.io.File;
 import java.util.List;
@@ -198,7 +199,7 @@ public class RobotContainer
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return drivebase.getAutonomousCommand("Angular");
+    return new OpSide(drivebase, m_arm, m_intake);
 }
 
 public void setMotorBrake(boolean brake)

@@ -7,19 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Angle Path"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "pathName": "OpSide"
           }
         }
       ]
