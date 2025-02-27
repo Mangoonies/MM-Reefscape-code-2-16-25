@@ -24,8 +24,8 @@ public class TestDrive extends SequentialCommandGroup {
    */
   public TestDrive(SwerveSubsystem Drivebase, Arm m_Arm, Intake m_intake) {
     addCommands(
-      Drivebase.getAutonomousCommand("Angular"),
-      new AutoArmRun(m_Arm, 1.6),
+      //Drivebase.getAutonomousCommand("Angular"),
+      new AutoArmRun(m_Arm, 1.1),
       new AutoIntakeRun(m_intake, 3));
    
   }

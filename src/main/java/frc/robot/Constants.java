@@ -39,9 +39,10 @@ public final class Constants
 
    // Matthew's real arm Subsystem
    public static int kArmID = 9; // CAN value of kHighIntakeID
-   public static final double kArmSpeed = .12; // Update this with your desired arm speed
+   public static final double kArmSpeed = .2; // Update this with your desired arm speed
    public static final double kArmIn = kArmSpeed;
    public static final double kArmOut = -kArmSpeed;
+   public static final double kArmAutoOut = -.12;
  
 // Climb Subsystem
 public static int kClimbID = 11; // CAN value of kHighIntakeID

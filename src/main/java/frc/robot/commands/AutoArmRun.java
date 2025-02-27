@@ -34,7 +34,7 @@ public class AutoArmRun extends Command {
   @Override
   public void execute() {
     System.out.println("AutoArmRun " + timer.get());
-    m_Arm.ArmRun(Constants.kArmOut);
+    m_Arm.ArmRun(Constants.kArmAutoOut);
   }
 
   // Called once the command ends or is interrupted.

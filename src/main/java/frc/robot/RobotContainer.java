@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
@@ -57,7 +59,25 @@ public class RobotContainer
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/falcon"));
 
-  
+  Command m_autonomousCommand;
+  SendableChooser<Command> m_chooser;{
+                                                                              
+                                                  
+   // Setup autonomous select commands
+   m_chooser = new SendableChooser<>();
+
+
+   m_chooser.setDefaultOption("Test Drive", 
+   new TestDrive(drivebase, m_arm, m_intake));
+
+   m_chooser.addOption("Center 12", 
+   new OpSide(drivebase, m_arm, m_intake));
+
+   
+ 
+ //SmartDashboard.putData("Chooser", m_chooser);
+ SmartDashboard.putData(m_chooser);
+ }
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -176,19 +196,19 @@ public class RobotContainer
                               );
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().onTrue(new InstantCommand(() -> m_intake.IntakeRun(Constants.kIntakeOut)))
-      .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
-      driverXbox.rightBumper().onTrue(new InstantCommand(() -> m_intake.IntakeRun(Constants.kIntakeIn)))
-      .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
-      driverXbox.leftTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmOut)))
-        .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
-      driverXbox.rightTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmIn)))
-        .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
 
-      operatorXbox.rightTrigger().onTrue(new InstantCommand(() -> m_climb.ClimbRun(Constants.kClimbIn)))
+      operatorXbox.y().onTrue(new InstantCommand(() -> m_climb.ClimbRun(Constants.kClimbIn)))
       .onFalse(new InstantCommand(() -> m_climb.ClimbRun(Constants.kStopSpeed)));
-      operatorXbox.leftTrigger().onTrue(new InstantCommand(() -> m_climb.ClimbRun(Constants.kClimbOut)))
-      .onFalse(new InstantCommand(() -> m_climb.ClimbRun(Constants.kStopSpeed)));
+      operatorXbox.a().onTrue(new InstantCommand(() -> m_climb.ClimbRun(Constants.kClimbOut)))
+      .onFalse(new InstantCommand(() -> m_climb.ClimbRun(Constants.kStopSpeed))); 
+      operatorXbox.leftBumper().onTrue(new InstantCommand(() -> m_intake.IntakeRun(Constants.kIntakeOut)))
+      .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
+      operatorXbox.rightBumper().onTrue(new InstantCommand(() -> m_intake.IntakeRun(Constants.kIntakeIn)))
+      .onFalse(new InstantCommand(() -> m_intake.IntakeRun(Constants.kStopSpeed)));
+      operatorXbox.leftTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmOut)))
+        .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
+      operatorXbox.rightTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmIn)))
+        .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
     }
 
   }
@@ -199,7 +219,9 @@ public class RobotContainer
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new OpSide(drivebase, m_arm, m_intake);
+    // The selected chooser command will run in autonomous
+    m_autonomousCommand = m_chooser.getSelected();
+    return m_autonomousCommand;
 }
 
 public void setMotorBrake(boolean brake)
