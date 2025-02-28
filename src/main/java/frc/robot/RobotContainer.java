@@ -34,8 +34,9 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Camera;
-import frc.robot.commands.OpSide;
-import frc.robot.commands.TestDrive;
+import frc.robot.commands.LeftAuto;
+import frc.robot.commands.RightAuto;
+import frc.robot.commands.CenterAuto;
 import java.io.File;
 import java.util.List;
 
@@ -67,11 +68,14 @@ public class RobotContainer
    m_chooser = new SendableChooser<>();
 
 
-   m_chooser.setDefaultOption("Test Drive", 
-   new TestDrive(drivebase, m_arm, m_intake));
+   m_chooser.setDefaultOption("Left Auto", 
+   new LeftAuto(drivebase, m_arm, m_intake));
 
-   m_chooser.addOption("Center 12", 
-   new OpSide(drivebase, m_arm, m_intake));
+   m_chooser.addOption("Right Auto", 
+   new RightAuto(drivebase, m_arm, m_intake));
+
+   m_chooser.addOption("Center Auto", 
+   new CenterAuto(drivebase, m_arm, m_intake));
 
    
  
@@ -209,6 +213,10 @@ public class RobotContainer
         .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
       operatorXbox.rightTrigger().onTrue(new InstantCommand(() -> m_arm.ArmRun(Constants.kArmIn)))
         .onFalse(new InstantCommand(() -> m_arm.ArmRun(Constants.kStopSpeed)));
+        operatorXbox.x().onTrue(new InstantCommand(() -> m_intake.AlgaeIntake(Constants.kAlgaeOut)))
+        .onFalse(new InstantCommand(() -> m_intake.AlgaeIntake(Constants.kStopSpeed)));
+        operatorXbox.b().onTrue(new InstantCommand(() -> m_intake.AlgaeIntake(Constants.kAlgaeIn)))
+        .onFalse(new InstantCommand(() -> m_intake.AlgaeIntake(Constants.kStopSpeed)));
     }
 
   }

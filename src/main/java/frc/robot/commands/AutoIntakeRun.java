@@ -34,7 +34,7 @@ public class AutoIntakeRun extends Command {
   @Override
   public void execute() {
     System.out.println("AutoIntakeRun " + timer.get());
-    m_intake.IntakeRun(Constants.kIntakeIn);
+    m_intake.IntakeRun(Constants.kAutoSpeed);
   }
 
   // Called once the command ends or is interrupted.

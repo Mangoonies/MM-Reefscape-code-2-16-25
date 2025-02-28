@@ -36,6 +36,10 @@ public final class Constants
   public static final double kIntakeSpeed = .16; // Update this with your desired intake speed
   public static final double kIntakeIn = kIntakeSpeed;
   public static final double kIntakeOut = -kIntakeSpeed;
+  public static final double kAlgaeSpeed = .64; // Update this with your desired intake speed
+  public static final double kAlgaeIn = kAlgaeSpeed;
+  public static final double kAlgaeOut = -kAlgaeSpeed;
+  public static final double kAutoSpeed = .32; // Update this with your desired intake speed
 
    // Matthew's real arm Subsystem
    public static int kArmID = 9; // CAN value of kHighIntakeID

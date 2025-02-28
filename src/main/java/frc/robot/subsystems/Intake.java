@@ -22,5 +22,11 @@ public class Intake extends SubsystemBase {
     m_highintake.set(speed);
    
   }
+
+  public void AlgaeIntake(double speed) {
+    //set motor speed  to intake, eject or stop
+      m_highintake.set(speed);
+     
+    }
 }
    
